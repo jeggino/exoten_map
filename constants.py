@@ -1,4 +1,4 @@
-ttl_df_points = '30m'
+ttl_df_points = 0
 ttl_df_users = '30m'
 
 OUTPUT_width = '95%'
