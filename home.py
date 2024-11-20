@@ -31,13 +31,17 @@ st.logo(IMAGE,  link=None, icon_image=IMAGE)
 
 col_1,col_2 = st.columns([2,1])
 
-col_1.image("https://www.elskenecologie.nl/wp-content/uploads/2023/08/terschelling.jpg")
-option_user = col_2.selectbox("Selecteer of u een gast of een gebruikersaccount bent. Bedankt.",("Gast", "Gebruiker"),index = None)
+placeholder = st.empty()
+with col_1:
+    placeholder.image("https://www.elskenecologie.nl/wp-content/uploads/2023/08/terschelling.jpg")
+with col_2:    
+    option_user = placeholder.selectbox("Selecteer of u een gast of een gebruikersaccount bent. Bedankt.",("Gast", "Gebruiker"),index = None)
 
 if option_user == None:
     st.stop()
 
 elif option_user == "Gast":
+    placeholder.empty()
     pg = st.navigation([page_1])
     pg.run()
 
@@ -49,5 +53,6 @@ elif option_user == "Gebruiker":
             st.stop()
 
     else:
+        placeholder.empty()
         pg = st.navigation([page_1,page_2])
         pg.run()
