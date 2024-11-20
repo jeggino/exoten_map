@@ -134,6 +134,8 @@ try:
               submitted = st.form_submit_button(":red[**Verwijder waarneming**]",use_container_width=True)
               if submitted:
                   df_filter = df_point_filtered[df_point_filtered["key"]==id]
+                  df_filter 
+                
                   df_drop = df_point_filtered[~df_point_filtered.apply(tuple, axis=1).isin(df_filter.apply(tuple, axis=1))]
                   conn.update(worksheet='df_observations',data=df_drop)
                   st.success('Waarneming verwijderd', icon="✅") 
