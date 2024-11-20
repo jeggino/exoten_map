@@ -58,8 +58,8 @@ map = folium.Map(tiles=None)
 LocateControl(auto_start=True,position="topright").add_to(map)
 Fullscreen(position="topright").add_to(map)
 
-points = folium.FeatureGroup(name='Punten')
-areas = folium.FeatureGroup(name='Gebieden')
+points = folium.FeatureGroup(name='Punten').add_to(map)
+areas = folium.FeatureGroup(name='Gebieden').add_to(map)
 
 folium.TileLayer('OpenStreetMap',overlay=False,show=True,name="Stratenkaart").add_to(map)
 folium.TileLayer(tiles="CartoDB Positron",overlay=False,show=False,name="Witte kaart").add_to(map)
