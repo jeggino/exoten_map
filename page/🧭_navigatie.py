@@ -61,11 +61,12 @@ Fullscreen(position="topright").add_to(map)
 points = folium.FeatureGroup(name='Punten').add_to(map)
 areas = folium.FeatureGroup(name='Gebieden').add_to(map)
 
-folium.TileLayer('OpenStreetMap',overlay=False,show=True,name="Stratenkaart").add_to(map)
-folium.TileLayer(tiles="CartoDB Positron",overlay=False,show=False,name="Witte kaart").add_to(map)
 folium.TileLayer(tiles='https://api.mapbox.com/styles/v1/jeggino/cm2vtvb2l000w01qz9wet0mv9/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiamVnZ2lubyIsImEiOiJjbHdscmRkZHAxMTl1MmlyeTJpb3Z2eHdzIn0.N9TRN7xxTikk235dVs1YeQ',
-                 attr='XXX Mapbox Attribution',overlay=False,show=False,name="Satellietkaart").add_to(map)
-df_point_filtered
+                 attr='XXX Mapbox Attribution',overlay=False,show=True,name="Satellietkaart").add_to(map)
+folium.TileLayer(tiles="CartoDB Positron",overlay=False,show=False,name="Witte kaart").add_to(map)
+folium.TileLayer('OpenStreetMap',overlay=False,show=False,name="Stratenkaart").add_to(map)
+
+
 # try:
 for i in range(len(df_point_filtered)):
 
