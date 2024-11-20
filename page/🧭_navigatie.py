@@ -101,7 +101,7 @@ try:
   
   
   
-  legend_template = legend(species_colors_dict,False)
+  legend_template = legend(species_colors_dict,True)
   macro = MacroElement()
   macro._template = Template(legend_template)
   map.get_root().add_child(macro)
