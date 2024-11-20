@@ -41,21 +41,18 @@ try:
                           value=(df_point.datum.min(), df_point.datum.max()),format="DD-MM-YYYY")
     
   df_point_filtered = df_point[(df_point['datum']>=d[0]) & (df_point['datum']<=d[1])]
-except:
-    pass
-
   species_filter_option = df_point_filtered["species"].unique()
   species_filter = st.sidebar.multiselect("Sorten",species_filter_option,species_filter_option)
   df_point_filtered = df_point_filtered[df_point_filtered['species'].isin(species_filter)]
+  species_colors_dict=dict(zip(species_filter_option,COLORS[:len(species_filter_option)]))
+  df_point_filtered['color'] = df_point_filtered['species'].map(species_colors_dict)
+  
+except:
+    pass
 
 st.sidebar.divider()
 
-try:
-    species_colors_dict=dict(zip(species_filter_option,COLORS[:len(species_filter_option)]))
-    df_point_filtered['color'] = df_point_filtered['species'].map(species_colors_dict)
-    
-except:
-    pass
+
  
 map = folium.Map(tiles=None)
 LocateControl(auto_start=True,position="topright").add_to(map)
@@ -69,36 +66,39 @@ folium.TileLayer(tiles="CartoDB Positron",overlay=False,show=False,name="Witte k
 folium.TileLayer(tiles='https://api.mapbox.com/styles/v1/jeggino/cm2vtvb2l000w01qz9wet0mv9/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiamVnZ2lubyIsImEiOiJjbHdscmRkZHAxMTl1MmlyeTJpb3Z2eHdzIn0.N9TRN7xxTikk235dVs1YeQ',
                  attr='XXX Mapbox Attribution',overlay=False,show=False,name="Satellietkaart").add_to(map)
 
-    
-for i in range(len(df_point_filtered)):
+try:
+  for i in range(len(df_point_filtered)):
+  
+      if df_point_filtered.iloc[i]['geometry_type'] == "Point":
+              
+  
+          html = popup_html(i,df_point)
+          popup = folium.Popup(folium.Html(html, script=True), max_width=300)
+  
+          folium.Marker([df_2.iloc[i]['lat'], df_2.iloc[i]['lng']],
+                        popup=popup,
+                        icon=folium.Icon(icon='plant',
+                                         prefix='fa',
+                                         icon_color='black',
+                                         color=df_point_filtered.iloc[i]['color'],)
+                       ).add_to(points)
+  
+      elif df_point_filtered.iloc[i]['geometry_type'] == "Polygon":
+          html = popup_polygons(i,df_point)
+          popup = folium.Popup(folium.Html(html, script=True), max_width=300)
+          location = df_point_filtered.iloc[i]['coordinates']
+          location = ast.literal_eval(location)
+          location = [i[::-1] for i in location[0]]
+              
+          folium.Polygon(location,
+                         fill_color=df_point_filtered.iloc[i]['color'],
+                         weight=0,
+                         fill_opacity=0.5,
+                         popup=popup
+                        ).add_to(areas)
 
-    if df_point_filtered.iloc[i]['geometry_type'] == "Point":
-            
-
-        html = popup_html(i,df_point)
-        popup = folium.Popup(folium.Html(html, script=True), max_width=300)
-
-        folium.Marker([df_2.iloc[i]['lat'], df_2.iloc[i]['lng']],
-                      popup=popup,
-                      icon=folium.Icon(icon='plant',
-                                       prefix='fa',
-                                       icon_color='black',
-                                       color=df_point_filtered.iloc[i]['color'],)
-                     ).add_to(points)
-
-    elif df_point_filtered.iloc[i]['geometry_type'] == "Polygon":
-        html = popup_polygons(i,df_point)
-        popup = folium.Popup(folium.Html(html, script=True), max_width=300)
-        location = df_point_filtered.iloc[i]['coordinates']
-        location = ast.literal_eval(location)
-        location = [i[::-1] for i in location[0]]
-            
-        folium.Polygon(location,
-                       fill_color=df_point_filtered.iloc[i]['color'],
-                       weight=0,
-                       fill_opacity=0.5,
-                       popup=popup
-                      ).add_to(areas)
+except:
+  pass
 
 folium.LayerControl().add_to(map)
 
