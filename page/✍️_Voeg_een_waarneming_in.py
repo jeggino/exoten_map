@@ -17,7 +17,7 @@ st.markdown(reduce_header_height_style, unsafe_allow_html=True)
 
 # --- APP ---  
 try:
-    st.logo(IMAGE,  link=None, icon_image=IMAGE_2)
+    st.logo(IMAGE_2,  link=None, icon_image=IMAGE_2)
     
     waarnemer = st.session_state.login['name']
     conn = st.connection("gsheets", type=GSheetsConnection)
