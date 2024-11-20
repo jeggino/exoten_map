@@ -1,7 +1,23 @@
 import streamlit as st
-from functions.login import logIn,logOut
+
+
+from streamlit_gsheets import GSheetsConnection
+
+import folium
+from folium.plugins import Draw, Fullscreen, LocateControl, GroupedLayerControl
+from streamlit_folium import st_folium
+
+import pandas as pd
+import datetime
+from datetime import datetime, timedelta, date
+import ast
+
+from functions.login import logOut,logIn
+from functions.popup import popup_polygons,popup_points
+from constants import *
+
 if "login" not in st.session_state:
-    logIn()
+    logIn(df_users)
     st.stop()
 
 
@@ -10,22 +26,6 @@ with st.sidebar:
     st.divider()
     
 st.write("ciao")
-# from streamlit_gsheets import GSheetsConnection
-
-# import folium
-# from folium.plugins import Draw, Fullscreen, LocateControl, GroupedLayerControl
-# from streamlit_folium import st_folium
-
-# import pandas as pd
-# import datetime
-# from datetime import datetime, timedelta, date
-# import ast
-
-# from functions.login import logOut
-# from functions.popup import popup_polygons,popup_points
-# from constants import *
-
-
 
 # #---DATASET---
 # conn = st.connection("gsheets", type=GSheetsConnection)
