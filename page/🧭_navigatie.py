@@ -107,10 +107,11 @@ try:
   macro._template = Template(legend_template)
   map.add_child(macro)
   
-  folium.LayerControl().add_to(map)
 
 except:
   pass
+
+folium.LayerControl().add_to(map)
 
 output = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_width, height=OUTPUT_height,
                      feature_group_to_add=[points,areas])
