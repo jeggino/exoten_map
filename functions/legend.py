@@ -27,7 +27,7 @@ def legend(species_colors_dict,dragable=False):
 
         <li><strong>Functie</strong></li>
         <li><span class="fa fa-map-marker" style="color:grey" opacity: 0.75;'></span>Waarneming</li>
-        <li><span class="fa fa-object-ungroup" style="color:grey" opacity: 0.75;'></span>Baltsterritorium</li>
+        <li><span class="fa fa-object-ungroup" style="color:grey" opacity: 0.75;'></span>Gebied</li>
       </ul> 
     </body>
     </html>
