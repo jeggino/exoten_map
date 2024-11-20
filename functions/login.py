@@ -1,23 +1,22 @@
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 
-from credentials import *
+from constants import *
 
 
 conn = st.connection("gsheets", type=GSheetsConnection)
-df_references = conn.read(ttl='10',worksheet="df_users")
+df_users = conn.read(ttl=ttl_df_users ,worksheet="df_users")
 
 
-def logIn():
+def logIn(df_users):
     name = st.text_input("Vul uw gebruikersnaam in, alstublieft",value=None)  
     password = st.text_input("Vul uw wachtwoord in, alstublieft")
     try:
         if name == None:
             st.stop()
         
-        index = df_references[df_references['username']==name].index[0]
-        true_password = df_references.loc[index,"password"]
-        type = df_references.loc[index,"type"]
+        index = df_users[df_users['username']==name].index[0]
+        true_password = df_users.loc[index,"password"]
 
     except:
         st.warning("De gebruikersnaam is niet correct.")
@@ -25,7 +24,7 @@ def logIn():
                              
     if st.button("logIn"):
         if password == true_password:
-            st.session_state.login = {"name": name, "password": password, 'type':type}
+            st.session_state.login = {"name": name, "password": password}
             st.rerun()
 
         else:
