@@ -10,7 +10,7 @@ import datetime
 from datetime import datetime, timedelta, date
 import ast
 
-from functions.login import logOut
+# from functions.login import logOut
 from functions.popup import popup_polygons,popup_points
 from constants import *
 from css import *
