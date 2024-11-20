@@ -125,6 +125,7 @@ try:
       lat = coordinates['lat']
       
       id = str(lng)+str(lat)
+      id 
 
       with st.sidebar:
           # if st.button("Waarneming bijwerken",use_container_width=True):
@@ -134,7 +135,9 @@ try:
               submitted = st.form_submit_button(":red[**Verwijder waarneming**]",use_container_width=True)
               if submitted:
                   df_filter = df_point_filtered[df_point_filtered["key"]==id]
+                  df_filter
                   df_drop = df_point_filtered[~df_point_filtered.apply(tuple, axis=1).isin(df_filter.apply(tuple, axis=1))]
+                  df_drop
                   conn.update(worksheet='df_observations',data=df_drop)
                   st.success('Waarneming verwijderd', icon="✅") 
                   st.page_link("page/🧭_navigatie.py", label="Vernieuwen", icon="🔄",use_container_width=True)
