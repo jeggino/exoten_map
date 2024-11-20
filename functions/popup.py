@@ -4,7 +4,7 @@ import pandas as pd
 import datetime
 from datetime import datetime, timedelta, date
 
-from credentials import *
+from constants import *
 
 def popup_polygons(row,df_point):
     
