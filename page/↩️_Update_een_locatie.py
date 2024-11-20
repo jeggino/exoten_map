@@ -113,13 +113,13 @@ except:
 
 folium.LayerControl().add_to(map)
 
-output = st_folium(map,returned_objects=["last_object_clicked"],width=OUTPUT_width, height=OUTPUT_height,
+output = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_width, height=OUTPUT_height,
                      feature_group_to_add=[points,areas])
 
 
 try:
     if len(output["last_object_clicked"]) != 0:
-      coordinates = output["last_object_clicked"]
+      coordinates = output["last_active_drawing"]
       coordinates
              
       lng = coordinates["lng"]
