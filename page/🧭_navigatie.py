@@ -30,10 +30,6 @@ df_point
 #---APP---
 st.logo(IMAGE,  link=None, icon_image=IMAGE)
 
-if option_user == "Gebruiker" 
-    with st.sidebar:
-        logOut()
-
 try:
   st.sidebar.subheader("Filter op",divider=False)
   df_point["datum"] = pd.to_datetime(df_point["datum"]).dt.date
