@@ -25,7 +25,7 @@ st.markdown(reduce_header_height_style, unsafe_allow_html=True)
 #---DATASET---
 conn = st.connection("gsheets", type=GSheetsConnection)
 df_point = conn.read(ttl=ttl_df_points ,worksheet="df_observations")
-
+df_point 
 
 #---APP---
 st.logo(IMAGE_2,  link=None, icon_image=IMAGE)
