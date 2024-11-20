@@ -1,6 +1,6 @@
 
 
-def legend(species_colors_dict,dragable=True):
+def legend(species_colors_dict,dragable=False):
 
     
     legend_temp=''
@@ -10,13 +10,10 @@ def legend(species_colors_dict,dragable=True):
         legend_temp = legend_temp + f"<li><span style='background: {species_colors_dict[species]}; opacity: 0.75;'></span>{species}</li>"
         
     
-    legend_body = f"""
-    
+    legend_body = f"""  
     <!doctype html>
     <html lang="en">
-    
     <body>
-    
     <div id='maplegend' class='maplegend' 
         style='position: absolute; z-index: 9999; background-color: rgba(255, 255, 255, 0.7);
          border-radius: 8px; padding: 10px; font-size: 11px; right: 10px; bottom: 35px; '>     
@@ -29,14 +26,8 @@ def legend(species_colors_dict,dragable=True):
         {legend_temp}
 
         <li><strong>Functie</strong></li>
-        <li><span class="fa fa-circle" style="color:grey" opacity: 0.75;'></span>Geen / Ombekend</li>
-        <li><span class="fa fa-star" style="color:grey" opacity: 0.75;'></span>Zommerverblijf</li>
-        <li><span class="fa fa-baby" style="color:grey" opacity: 0.75;'></span>Kraamverblif</li>
-        <li><span class="fa fa-snowflake" style="color:grey" opacity: 0.75;'></span>Winterverblijf</li>
-        <li><span class="fa fa-heart" style="color:grey" opacity: 0.75;'></span>Paarverblijf</li>
-        <li><strong>Functiegebied</strong></li>
-        <li><span class="fa fa-object-ungroup" style="color:green" opacity: 0.75;'></span>Foerageergebied</li>
-        <li><span class="fa fa-object-ungroup" style="color:red" opacity: 0.75;'></span>Baltsterritorium</li>
+        <li><span class="fa fa-map-marker" style="color:grey" opacity: 0.75;'></span>Waarneming</li>
+        <li><span class="fa fa-object-ungroup" style="color:grey" opacity: 0.75;'></span>Baltsterritorium</li>
       </ul> 
     </body>
     </html>
