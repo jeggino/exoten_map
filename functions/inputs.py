@@ -16,7 +16,7 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 
 def map(OUTPUT_width,OUTPUT_height):
     
-    m = folium.Map()
+    m = folium.Map(tiles=None)
   
     Draw(draw_options={'circle': False,'rectangle': False,'circlemarker': False, 'polyline': False, 'polygon': True},
         position="topright",).add_to(m)        
