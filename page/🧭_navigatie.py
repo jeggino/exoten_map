@@ -4,13 +4,14 @@ from streamlit_gsheets import GSheetsConnection
 import folium
 from folium.plugins import Draw, Fullscreen, LocateControl, GroupedLayerControl
 from streamlit_folium import st_folium
+from branca.element import Template, MacroElement, IFrame
 
 import pandas as pd
 import datetime
 from datetime import datetime, timedelta, date
 import ast
 
-# from functions.login import logOut
+from functions.legend import legend
 from functions.popup import popup_polygons,popup_points
 from constants import *
 from css import *
@@ -101,6 +102,11 @@ for i in range(len(df_point_filtered)):
 #   pass
 
 folium.LayerControl().add_to(map)
+
+legend_template = legend(species_colors_dict,True)
+macro = MacroElement()
+macro._template = Template(legend_template)
+map.add_child(macro)
 
 output = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_width, height=OUTPUT_height,
                      feature_group_to_add=[points,areas])
