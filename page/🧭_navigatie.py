@@ -10,6 +10,7 @@ import datetime
 from datetime import datetime, timedelta, date
 import ast
 
+from functions.login import logOut
 from functions.popup import popup_polygons,popup_points
 from constants import *
 
@@ -18,7 +19,6 @@ from constants import *
 #---DATASET---
 conn = st.connection("gsheets", type=GSheetsConnection)
 df_point = conn.read(ttl=ttl_df_points ,worksheet="df_observations")
-df_references = conn.read(ttl=ttl_df_users ,worksheet="df_users")
 
 #---STYLE---
 st.markdown(
@@ -55,6 +55,9 @@ st.markdown(reduce_header_height_style, unsafe_allow_html=True)
 
 #---APP---
 st.logo(IMAGE_2,  link=None, icon_image=IMAGE)
+
+with st.sidebar():
+    logOut()
 
 df_point["datum"] = pd.to_datetime(df_point["datum"]).dt.date
 
