@@ -11,7 +11,7 @@ def popup_polygons(row,df_point):
     i = row
 
     datum=df_point['datum'].iloc[i] 
-    specie = df_point['specie'].iloc[i] 
+    specie = df_point['species'].iloc[i] 
     opmerking=df_point['opmerking'].iloc[i]       
 
     left_col_color = "#19a7bd"
@@ -44,7 +44,7 @@ def popup_points(row,df_point):
     i = row
 
     datum=df_point['datum'].iloc[i] 
-    specie = df_point['specie'].iloc[i] 
+    specie = df_point['species'].iloc[i] 
     opmerking=df_point['opmerking'].iloc[i]       
 
     left_col_color = "#19a7bd"
