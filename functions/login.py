@@ -8,9 +8,10 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 df_users = conn.read(ttl=ttl_df_users ,worksheet="df_users")
 
 
-def logIn(df_users):
+def logIn(df_users,user_type):
     name = st.text_input("Vul uw gebruikersnaam in, alstublieft",value=None)  
     password = st.text_input("Vul uw wachtwoord in, alstublieft")
+    user_type = user_type
     try:
         if name == None:
             st.stop()
@@ -24,7 +25,7 @@ def logIn(df_users):
                              
     if st.button("logIn",use_container_width=True):
         if password == true_password:
-            st.session_state.login = {"name": name, "password": password}
+            st.session_state.login = {"name": name, "password": password, 'user_type':user_type}
             st.rerun()
 
         else:
