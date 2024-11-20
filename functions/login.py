@@ -9,14 +9,17 @@ df_users = conn.read(ttl=ttl_df_users ,worksheet="df_users")
 
 
 def logIn(df_users):
-    option_user = st.selectbox("Selecteer of u een gast of een gebruikersaccount bent. Bedankt.",("Gast", "Gebruiker"),index = None)
+    col_1,col_2 = st.columns([2,1])
+    col_1.image("https://www.elskenecologie.nl/wp-content/uploads/2023/08/terschelling.jpg")
+    
+    option_user = col_1.selectbox("Selecteer of u een gast of een gebruikersaccount bent. Bedankt.",("Gast", "Gebruiker"),index = None)
     
     if option_user == None:
         st.stop()
 
     elif option_user == "Gebruiker": 
-        name = st.text_input("Vul uw gebruikersnaam in, alstublieft",value=None)  
-        password = st.text_input("Vul uw wachtwoord in, alstublieft")
+        name = col_1.text_input("Vul uw gebruikersnaam in, alstublieft",value=None)  
+        password = col_1.text_input("Vul uw wachtwoord in, alstublieft")
         
         try:
             if name == None:
@@ -26,7 +29,7 @@ def logIn(df_users):
             true_password = df_users.loc[index,"password"]
     
         except:
-            st.warning("De gebruikersnaam is niet correct.")
+            col_1.warning("De gebruikersnaam is niet correct.")
             st.stop()
             
     elif option_user == "Gast":
