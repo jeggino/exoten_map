@@ -13,43 +13,18 @@ import ast
 from functions.login import logOut
 from functions.popup import popup_polygons,popup_points
 from constants import *
+from css import *
+
+
+#---LAYOUT---
+st.markdown(collapsedControl,unsafe_allow_html=True,)
+st.markdown(header_hidden,unsafe_allow_html=True)
+st.markdown(reduce_header_height_style, unsafe_allow_html=True)
 
 
 #---DATASET---
 conn = st.connection("gsheets", type=GSheetsConnection)
 df_point = conn.read(ttl=ttl_df_points ,worksheet="df_observations")
-
-#---STYLE---
-st.markdown(
-    """
-    <style>
-    [data-testid="collapsedControl"] svg {
-        height: 0rem;
-        width: 0rem;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
-st.markdown("""
-    <style>
-    .css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob, .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137, .viewerBadge_text__1JaDK{ display: none; } #MainMenu{ visibility: hidden; } footer { visibility: hidden; } header { visibility: hidden; }
-    </style>
-    """,
-    unsafe_allow_html=True)
-
-
-
-reduce_header_height_style = """
-<style>
-    div.block-container {padding-top: 1rem; padding-bottom: 0rem; padding-left: 1rem; padding-right: 1rem; margin-top: 0rem; margin-bottom: 0rem;}
-</style>
-""" 
-
-st.markdown(reduce_header_height_style, unsafe_allow_html=True)
-
-
 
 
 #---APP---
