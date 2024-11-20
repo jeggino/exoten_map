@@ -140,5 +140,5 @@ output = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_wid
 #                   st.success('Waarneming verwijderd', icon="✅") 
 #                   st.page_link("page/🧭_navigatie.py", label="Vernieuwen", icon="🔄",use_container_width=True)
 
-except:
-    pass
+# except:
+#     pass
