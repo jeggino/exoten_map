@@ -36,7 +36,7 @@ if "login" not in st.session_state:
     st.stop()
 
 if st.session_state.login['option_user'] == 'Gebruiker':
-    pg = st.navigation([page_1,page_2,page_3])
+    pg = st.navigation([page_1,page_2])
     pg.run()
 
 elif st.session_state.login['option_user'] == 'Gast':
