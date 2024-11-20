@@ -31,25 +31,18 @@ df_point_filtered =  df_point.copy()
 #---APP---
 st.logo(IMAGE,  link=None, icon_image=IMAGE)
 
-try:
+if len(df_point_filtered)>0:
   st.sidebar.subheader("Filter op",divider=False)
   df_point_filtered["datum"] = pd.to_datetime(df_point["datum"]).dt.date
   d = st.sidebar.slider("Datum", min_value=df_point_filtered.datum.min(),max_value=df_point_filtered.datum.max(),
                           value=(df_point_filtered.datum.min(), df_point_filtered.datum.max()),format="DD-MM-YYYY")
     
   df_point_filtered = df_point_filtered[(df_point['datum']>=d[0]) & (df_point_filtered['datum']<=d[1])]
-except:
-  pass
-
-try:
   species_filter_option = df_point_filtered["species"].unique()
   species_filter = st.sidebar.multiselect("Sorten",species_filter_option,species_filter_option)
   df_point_filtered = df_point_filtered[df_point_filtered['species'].isin(species_filter)]
   species_colors_dict=dict(zip(species_filter_option,COLORS[:len(species_filter_option)]))
   df_point_filtered['color'] = df_point_filtered['species'].map(species_colors_dict)
-  
-except:
-    pass
 
 st.sidebar.divider()
 
