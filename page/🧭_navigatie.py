@@ -30,7 +30,7 @@ df_point
 #---APP---
 st.logo(IMAGE_2,  link=None, icon_image=IMAGE)
 
-with st.sidebar():
+with st.sidebar:
     logOut()
 
 try:
