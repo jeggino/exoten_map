@@ -46,11 +46,12 @@ page_2 = st.Page("page/✍️_Voeg_een_waarneming_in.py", title="Voeg een waarne
 # page_4 = st.Page("page/📊_ Statistik.py", title="Statistik",icon="📊" )
 
 #---APP---
-IMAGE = "image/logo.png"
-st.logo(IMAGE_2,  link=None, icon_image=IMAGE_2)
+st.logo(IMAGE,  link=None, icon_image=IMAGE)
 
-st.image("https://www.elskenecologie.nl/wp-content/uploads/2023/08/terschelling.jpg")
-option_user = st.selectbox("Selecteer of u een gast of een gebruikersaccount bent. Bedankt.",("Gast", "Gebruiker"),index = None)
+col_1,col_2 = st.columns([4,1])
+
+col_1.image("https://www.elskenecologie.nl/wp-content/uploads/2023/08/terschelling.jpg")
+option_user = col_2.selectbox("Selecteer of u een gast of een gebruikersaccount bent. Bedankt.",("Gast", "Gebruiker"),index = None)
 
 if option_user == None:
     st.stop()
