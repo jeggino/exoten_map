@@ -1,30 +1,26 @@
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
-import pandas as pd
-import geopandas as gpd
-import random
 
 import folium
 from folium.plugins import Draw, Fullscreen, LocateControl, GroupedLayerControl
 from streamlit_folium import st_folium
+
+import pandas as pd
 import datetime
 from datetime import datetime, timedelta, date
-import random
-
 import ast
 
-from credentials import *
+from functions.popup import popup_polygons,popup_points
+from constants import *
 
 
 
 #---DATASET---
-ttl = '30m'
-ttl_references = '30m'
 conn = st.connection("gsheets", type=GSheetsConnection)
-df_point = conn.read(ttl=ttl,worksheet="df_observations")
-df_references = conn.read(ttl=ttl_references,worksheet="df_users")
+df_point = conn.read(ttl=ttl_df_points ,worksheet="df_observations")
+df_references = conn.read(ttl=ttl_df_users ,worksheet="df_users")
 
-
+#---STYLE---
 st.markdown(
     """
     <style>
@@ -55,16 +51,10 @@ reduce_header_height_style = """
 st.markdown(reduce_header_height_style, unsafe_allow_html=True)
 
 
-# --- DIMENSIONS ---
-OUTPUT_width = '95%'
-OUTPUT_height = 550
 
 
 #---APP---
-IMAGE = "image/logo.png"
-IMAGE_2 ="image/menu.jpg"
-st.logo(IMAGE_2,  link=None, icon_image=IMAGE_2)
-
+st.logo(IMAGE_2,  link=None, icon_image=IMAGE)
 
 df_point["datum"] = pd.to_datetime(df_point["datum"]).dt.date
 
@@ -73,124 +63,70 @@ try:
   d = st.sidebar.slider("Datum", min_value=df_point.datum.min(),max_value=df_point.datum.max(),
                           value=(df_point.datum.min(), df_point.datum.max()),format="DD-MM-YYYY")
     
-  df_point = df_point[(df_point['datum']>=d[0]) & (df_point['datum']<=d[1])]
+  df_point_filtered = df_point[(df_point['datum']>=d[0]) & (df_point['datum']<=d[1])]
 except:
     pass
 
-  species_filter_option = df_2["sp"].unique()
+  species_filter_option = df_point_filtered["species"].unique()
   species_filter = st.sidebar.multiselect("Sorten",species_filter_option,species_filter_option)
-  df_point = df_point[df_point['sp'].isin(species_filter)]
+  df_point_filtered = df_point_filtered[df_point_filtered['species'].isin(species_filter)]
 
 st.sidebar.divider()
 
 try:
-    df_2["icon_data"] = df_2.apply(lambda x: None if x["geometry_type"] in ["LineString","Polygon"] 
-                                   else (icon_dictionary[x["soortgroup"]][x["sp"]][x["functie"]] if x["soortgroup"] in ['Vogels','Vleermuizen',"Vogels-Overig"] 
-                                         else icon_dictionary[x["soortgroup"]][x["functie"]]), 
-                                   axis=1)
+    species_colors_dict=dict(zip(species_filter_option,COLORS[:len(species_filter_option)]))
+    df_point_filtered['color'] = df_point_filtered['species'].map(species_colors_dict)
     
-    df_2 = df_2.reset_index(drop=True)
 except:
     pass
  
 map = folium.Map(tiles=None)
-
-if st.session_state.project['auto_start']==True:
-    auto_start = False
-else:
-    auto_start = True
 LocateControl(auto_start=True,position="topright").add_to(map)
 Fullscreen(position="topright").add_to(map)
 
-functie_dictionary = {}
-
-try:
-    functie_len = df_2['functie'].unique()
-    
-    for functie in functie_len:
-        functie_dictionary[functie] = folium.FeatureGroup(name=functie)    
-    
-    for feature_group in functie_dictionary.keys():
-        map.add_child(functie_dictionary[feature_group])
-except:
-    pass
-
-functie_dictionary['geometry'] = folium.FeatureGroup(name='Geometries')
+points = folium.FeatureGroup(name='Punten')
+areas = folium.FeatureGroup(name='Gebieden')
 
 folium.TileLayer('OpenStreetMap',overlay=False,show=True,name="Stratenkaart").add_to(map)
 folium.TileLayer(tiles="CartoDB Positron",overlay=False,show=False,name="Witte kaart").add_to(map)
-folium.TileLayer(tiles='https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',attr='Google_map',overlay=False,show=False,name="Satellietkaart").add_to(map)
+folium.TileLayer(tiles='https://api.mapbox.com/styles/v1/jeggino/cm2vtvb2l000w01qz9wet0mv9/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiamVnZ2lubyIsImEiOiJjbHdscmRkZHAxMTl1MmlyeTJpb3Z2eHdzIn0.N9TRN7xxTikk235dVs1YeQ',
+                 attr='XXX Mapbox Attribution',overlay=False,show=False,name="Satellietkaart").add_to(map)
 
-try:
-    folium.GeoJson(
-        st.session_state.project['gdf'],
-        name=f"*Gebied: {st.session_state.project['area']}",
-        style_function=lambda feature: {
-            "color": "black",
-            "weight": 1,
-        },
-    ).add_to(map)
-except:
-    pass
     
-for i in range(len(df_2)):
+for i in range(len(df_point_filtered)):
 
-    if df_2.iloc[i]['geometry_type'] == "Point":
-
-        if (df_2.iloc[i]['sp']=="Huismus"):
-            ICON_SIZE_2 = ICON_SIZE_huismus
-
-
-        elif (df_2.iloc[i]['sp'] in ['Laatvlieger','Rosse vleermuis','Meervleermuis','Watervleermuis']):
-            ICON_SIZE_2 = ICON_SIZE_BAT_EXTRA
-
-        elif (df_2.iloc[i]['sp'] in ['Ruige dwergvleermuis']):
-            ICON_SIZE_2 = ICON_SIZE_RUIGE
-
-        elif (df_2.iloc[i]['sp']=="...Andere(n)") & (df_2.iloc[i]['soortgroup'] == 'Vogels-Overig'):
-            ICON_SIZE_2 = ICON_SIZE_BIRD
-
-        elif (df_2.iloc[i]['sp'] == '...Andere(n)') & (df_2.iloc[i]['soortgroup'] == 'Vleermuizen'):
-            ICON_SIZE_2 = ICON_SIZE
-
-        elif (df_2.iloc[i]['sp'] == 'Huiszwaluw'):
-            ICON_SIZE_2 = ICON_SIZE_Huiszwaluw
-
-        else:             
-            ICON_SIZE_2 = ICON_SIZE
+    if df_point_filtered.iloc[i]['geometry_type'] == "Point":
             
 
-        html = popup_html(i)
+        html = popup_html(i,df_point)
         popup = folium.Popup(folium.Html(html, script=True), max_width=300)
-        fouctie_loop = functie_dictionary[df_2.iloc[i]['functie']]
 
         folium.Marker([df_2.iloc[i]['lat'], df_2.iloc[i]['lng']],
                       popup=popup,
-                      icon=folium.features.CustomIcon(df_2.iloc[i]["icon_data"], icon_size=ICON_SIZE_2)
-                     ).add_to(fouctie_loop)
+                      icon=folium.Icon(icon='plant',
+                                       prefix='fa',
+                                       icon_color='black',
+                                       color=df_point_filtered.iloc[i]['color'],)
+                     ).add_to(points)
 
-    elif df_2.iloc[i]['geometry_type'] == "Polygon":
-        html = popup_polygons(i)
+    elif df_point_filtered.iloc[i]['geometry_type'] == "Polygon":
+        html = popup_polygons(i,df_point)
         popup = folium.Popup(folium.Html(html, script=True), max_width=300)
-        fouctie_loop = functie_dictionary[df_2.iloc[i]['functie']]
-        location = df_2.iloc[i]['coordinates']
+        location = df_point_filtered.iloc[i]['coordinates']
         location = ast.literal_eval(location)
         location = [i[::-1] for i in location[0]]
-                    
-        if df_2.iloc[i]['functie']=="Baltsterritorium":
-            fill_color="red"
-
-        else:
-            fill_color="green"
             
-        folium.Polygon(location,fill_color=fill_color,weight=0,fill_opacity=0.5,
-                      popup=popup
-                      ).add_to(fouctie_loop)
+        folium.Polygon(location,
+                       fill_color=df_point_filtered.iloc[i]['color'],
+                       weight=0,
+                       fill_opacity=0.5,
+                       popup=popup
+                      ).add_to(areas)
 
 folium.LayerControl().add_to(map)
 
 output = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_width, height=OUTPUT_height,
-                     feature_group_to_add=list(functie_dictionary.values()))
+                     feature_group_to_add=[points,areas])
 
 
 # except:
