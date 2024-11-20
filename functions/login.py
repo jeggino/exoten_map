@@ -9,7 +9,7 @@ df_users = conn.read(ttl=ttl_df_users ,worksheet="df_users")
 
 
 def logIn(df_users):
-    col_1,col_2 = st.columns([2,1])
+    col_1,col_2 = st.columns([3,2])
     col_1.image("https://www.elskenecologie.nl/wp-content/uploads/2023/08/terschelling.jpg")
     
     option_user = col_2.selectbox("Selecteer of u een gast of een gebruikersaccount bent. Bedankt.",("Gast", "Gebruiker"),index = None)
