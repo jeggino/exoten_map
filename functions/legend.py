@@ -1,6 +1,6 @@
 
 
-def legend(species_colors_dict,dragable=False):
+def legend(species_colors_dict,dragable=True):
 
     
     legend_temp=''
