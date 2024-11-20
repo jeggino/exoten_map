@@ -2,7 +2,7 @@ import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 
 from constants import *
-from functions.login import logIn,logOut
+from functions.login import logIn
 
 
 conn = st.connection("gsheets", type=GSheetsConnection)
@@ -42,8 +42,8 @@ st.markdown(reduce_header_height_style, unsafe_allow_html=True)
 #---APP---
 page_1 = st.Page("page/🧭_navigatie.py", title="Navigatie",icon="🧭" )
 page_2 = st.Page("page/✍️_Voeg_een_waarneming_in.py", title="Voeg een waarneming in",icon="✍️" )
-page_3 = st.Page("page/↩️_Update_een_locatie.py", title="Update een locatie",icon="↩️" )
-page_4 = st.Page("page/📊_ Statistik.py", title="Statistik",icon="📊" )
+# page_3 = st.Page("page/↩️_Update_een_locatie.py", title="Update een locatie",icon="↩️" )
+# page_4 = st.Page("page/📊_ Statistik.py", title="Statistik",icon="📊" )
 
 #---APP---
 IMAGE = "image/logo.png"
@@ -56,7 +56,7 @@ if option_user == None:
     st.stop()
 
 elif option_user == "Gast":
-    pg = st.navigation([page_4])
+    pg = st.navigation([page_1])
 
 elif option_user == "Gebruiker":
     
@@ -65,5 +65,5 @@ elif option_user == "Gebruiker":
         st.stop()
 
     else:
-        pg = st.navigation([page_1,page_2,page_3,page_4])
+        pg = st.navigation([page_1,page_2])
         pg.run()
