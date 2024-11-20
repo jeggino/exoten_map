@@ -127,8 +127,8 @@ try:
         name = f"{id}"
 
     with st.sidebar:
-        if st.button("Waarneming bijwerken",use_container_width=True):
-            update_item()
+        # if st.button("Waarneming bijwerken",use_container_width=True):
+        #     update_item()
         with st.form("entry_form", clear_on_submit=True,border=False):
             submitted = st.form_submit_button(":red[**Verwijder waarneming**]",use_container_width=True)
             if submitted:
@@ -137,7 +137,7 @@ try:
                 df_drop = df[~df.apply(tuple, axis=1).isin(df_filter.apply(tuple, axis=1))]
                 conn.update(worksheet='df_observations',data=df_drop)
                 st.success('Waarneming verwijderd', icon="✅") 
-                st.page_link("🗺️_Home.py", label="Vernieuwen", icon="🔄",use_container_width=True)
+                st.page_link("page/🧭_navigatie.py", label="Vernieuwen", icon="🔄",use_container_width=True)
 
 except:
     pass
