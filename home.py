@@ -29,30 +29,15 @@ page_2 = st.Page("page/✍️_Voeg_een_waarneming_in.py", title="Voeg een waarne
 #---APP---
 st.logo(IMAGE,  link=None, icon_image=IMAGE)
 
-col_1,col_2 = st.columns([2,1])
-
-placeholder = st.empty()
-with col_1:
-    placeholder.image("https://www.elskenecologie.nl/wp-content/uploads/2023/08/terschelling.jpg")
-with col_2:    
-    option_user = placeholder.selectbox("Selecteer of u een gast of een gebruikersaccount bent. Bedankt.",("Gast", "Gebruiker"),index = None)
-
-if option_user == None:
+    
+if "login" not in st.session_state:
+    logIn(df_users)
     st.stop()
 
-elif option_user == "Gast":
-    placeholder.empty()
-    pg = st.navigation([page_1])
+if st.session_state.login['option_user'] == 'Gebruiker':
+    pg = st.navigation([page_1,page_2])
     pg.run()
 
-elif option_user == "Gebruiker":
-    
-    if "login" not in st.session_state:
-        with col_2:
-            logIn(df_users)
-            st.stop()
-
-    else:
-        pg = st.navigation([page_1,page_2])
-        pg.run()
-        placeholder.empty()
+elif st.session_state.login['option_user'] == 'Gast':
+    pg = st.navigation([page_1])
+    pg.run()
