@@ -32,11 +32,11 @@ st.logo(IMAGE,  link=None, icon_image=IMAGE)
 
 try:
   st.sidebar.subheader("Filter op",divider=False)
-  df_point["datum"] = pd.to_datetime(df_point["datum"]).dt.date
-  d = st.sidebar.slider("Datum", min_value=df_point.datum.min(),max_value=df_point.datum.max(),
-                          value=(df_point.datum.min(), df_point.datum.max()),format="DD-MM-YYYY")
+  df_point_filtered["datum"] = pd.to_datetime(df_point["datum"]).dt.date
+  d = st.sidebar.slider("Datum", min_value=df_point_filtered.datum.min(),max_value=df_point_filtered.datum.max(),
+                          value=(df_point_filtered.datum.min(), df_point_filtered.datum.max()),format="DD-MM-YYYY")
     
-  df_point_filtered = df_point[(df_point['datum']>=d[0]) & (df_point['datum']<=d[1])]
+  df_point_filtered = df_point_filtered[(df_point['datum']>=d[0]) & (df_point_filtered['datum']<=d[1])]
 except:
   pass
 
@@ -73,10 +73,10 @@ for i in range(len(df_point_filtered)):
     if df_point_filtered.iloc[i]['geometry_type'] == "Point":
             
 
-        html = popup_html(i,df_point)
+        html = popup_html(i,df_point_filtered)
         popup = folium.Popup(folium.Html(html, script=True), max_width=300)
 
-        folium.Marker([df_2.iloc[i]['lat'], df_2.iloc[i]['lng']],
+        folium.Marker([df_point_filtered.iloc[i]['lat'], df_point_filtered.iloc[i]['lng']],
                       popup=popup,
                       icon=folium.Icon(icon='plant',
                                        prefix='fa',
@@ -85,7 +85,7 @@ for i in range(len(df_point_filtered)):
                      ).add_to(points)
 
     elif df_point_filtered.iloc[i]['geometry_type'] == "Polygon":
-        html = popup_polygons(i,df_point)
+        html = popup_polygons(i,df_point_filtered)
         popup = folium.Popup(folium.Html(html, script=True), max_width=300)
         location = df_point_filtered.iloc[i]['coordinates']
         location = ast.literal_eval(location)
