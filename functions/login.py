@@ -12,14 +12,14 @@ def logIn(df_users):
     col_1,col_2 = st.columns([2,1])
     col_1.image("https://www.elskenecologie.nl/wp-content/uploads/2023/08/terschelling.jpg")
     
-    option_user = col_1.selectbox("Selecteer of u een gast of een gebruikersaccount bent. Bedankt.",("Gast", "Gebruiker"),index = None)
+    option_user = col_2.selectbox("Selecteer of u een gast of een gebruikersaccount bent. Bedankt.",("Gast", "Gebruiker"),index = None)
     
     if option_user == None:
         st.stop()
 
     elif option_user == "Gebruiker": 
-        name = col_1.text_input("Vul uw gebruikersnaam in, alstublieft",value=None)  
-        password = col_1.text_input("Vul uw wachtwoord in, alstublieft")
+        name = col_2.text_input("Vul uw gebruikersnaam in, alstublieft",value=None)  
+        password = col_2.text_input("Vul uw wachtwoord in, alstublieft")
         
         try:
             if name == None:
@@ -29,7 +29,7 @@ def logIn(df_users):
             true_password = df_users.loc[index,"password"]
     
         except:
-            col_1.warning("De gebruikersnaam is niet correct.")
+            col_2.warning("De gebruikersnaam is niet correct.")
             st.stop()
             
     elif option_user == "Gast":
