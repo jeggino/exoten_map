@@ -28,7 +28,7 @@ page_2 = st.Page("page/✍️_Voeg_een_waarneming_in.py", title="Voeg een waarne
 # page_4 = st.Page("page/📊_ Statistik.py", title="Statistik",icon="📊" )
 
 #---APP---
-st.logo(IMAGE,  link=None, icon_image=IMAGE)
+st.logo(IMAGE,  link=LINK, icon_image=IMAGE)
 
     
 if "login" not in st.session_state:
