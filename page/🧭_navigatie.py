@@ -33,10 +33,9 @@ st.logo(IMAGE_2,  link=None, icon_image=IMAGE)
 with st.sidebar():
     logOut()
 
-df_point["datum"] = pd.to_datetime(df_point["datum"]).dt.date
-
 try:
   st.sidebar.subheader("Filter op",divider=False)
+  df_point["datum"] = pd.to_datetime(df_point["datum"]).dt.date
   d = st.sidebar.slider("Datum", min_value=df_point.datum.min(),max_value=df_point.datum.max(),
                           value=(df_point.datum.min(), df_point.datum.max()),format="DD-MM-YYYY")
     
