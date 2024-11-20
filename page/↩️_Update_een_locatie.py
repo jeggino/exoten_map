@@ -118,7 +118,7 @@ output = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_wid
 
 
 try:
-    if len(output["last_object_clicked"]) != 0:
+    if len(output["last_active_drawing"]) != 0:
       coordinates = output["last_active_drawing"]
       coordinates
              
