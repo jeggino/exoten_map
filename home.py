@@ -48,7 +48,7 @@ page_2 = st.Page("page/✍️_Voeg_een_waarneming_in.py", title="Voeg een waarne
 #---APP---
 st.logo(IMAGE,  link=None, icon_image=IMAGE)
 
-col_1,col_2 = st.columns([4,1])
+col_1,col_2 = st.columns([3,1])
 
 col_1.image("https://www.elskenecologie.nl/wp-content/uploads/2023/08/terschelling.jpg")
 option_user = col_2.selectbox("Selecteer of u een gast of een gebruikersaccount bent. Bedankt.",("Gast", "Gebruiker"),index = None)
@@ -62,8 +62,9 @@ elif option_user == "Gast":
 elif option_user == "Gebruiker":
     
     if "login" not in st.session_state:
-        logIn(df_users)
-        st.stop()
+        with col_2:
+            logIn(df_users)
+            st.stop()
 
     else:
         pg = st.navigation([page_1,page_2])
