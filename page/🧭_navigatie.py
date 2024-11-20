@@ -104,7 +104,7 @@ try:
   legend_template = legend(species_colors_dict,False)
   macro = MacroElement()
   macro._template = Template(legend_template)
-  map.add_child(macro)
+  map.get_root().add_child(macro)
   
 
 except:
