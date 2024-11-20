@@ -9,6 +9,7 @@ from functions.login import logIn
 
 
 
+
 #---LAYOUT---
 st.markdown(collapsedControl,unsafe_allow_html=True,)
 st.markdown(header_hidden,unsafe_allow_html=True)
