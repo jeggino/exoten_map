@@ -91,7 +91,7 @@ for i in range(len(df_point_filtered)):
             
       folium.Polygon(location,
                      fill_color=df_point_filtered.iloc[i]['color'],
-                     weight=0,
+                     weight=0.4,
                      fill_opacity=0.5,
                      popup=popup
                     ).add_to(areas)
