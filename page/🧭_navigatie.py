@@ -61,47 +61,49 @@ folium.TileLayer(tiles="CartoDB Positron",overlay=False,show=False,name="Witte k
 folium.TileLayer('OpenStreetMap',overlay=False,show=False,name="Stratenkaart").add_to(map)
 
 
-# try:
-for i in range(len(df_point_filtered)):
-
-    if df_point_filtered.iloc[i]['geometry_type'] == "Point":
-      html = popup_points(i,df_point_filtered)
-      popup = folium.Popup(folium.Html(html, script=True), max_width=300)
-      
-      folium.Marker([df_point_filtered.iloc[i]['lat'], df_point_filtered.iloc[i]['lng']],
-        popup=popup,
-        icon=folium.Icon(icon="fa-brands fa-pagelines",
-        prefix='fa',
-        icon_color='black',
-        color=df_point_filtered.iloc[i]['color'],)
-        ).add_to(points)
-
-    elif df_point_filtered.iloc[i]['geometry_type'] == "Polygon":
-      html = popup_polygons(i,df_point_filtered)
-      popup = folium.Popup(folium.Html(html, script=True), max_width=300)
-      location = df_point_filtered.iloc[i]['coordinates']
-      location = ast.literal_eval(location)
-      location = [i[::-1] for i in location[0]]
-            
-      folium.Polygon(location,
-                     color="black",
-                     fill_color=df_point_filtered.iloc[i]['color'],
-                     weight=2,
-                     fill_opacity=0.5,
-                     popup=popup
-                    ).add_to(areas)
-
-# except:
-#   pass
+try:
+  for i in range(len(df_point_filtered)):
+  
+      if df_point_filtered.iloc[i]['geometry_type'] == "Point":
+        html = popup_points(i,df_point_filtered)
+        popup = folium.Popup(folium.Html(html, script=True), max_width=300)
+        
+        folium.Marker([df_point_filtered.iloc[i]['lat'], df_point_filtered.iloc[i]['lng']],
+          popup=popup,
+          icon=folium.Icon(icon="fa-brands fa-pagelines",
+          prefix='fa',
+          icon_color='black',
+          color=df_point_filtered.iloc[i]['color'],)
+          ).add_to(points)
+  
+      elif df_point_filtered.iloc[i]['geometry_type'] == "Polygon":
+        html = popup_polygons(i,df_point_filtered)
+        popup = folium.Popup(folium.Html(html, script=True), max_width=300)
+        location = df_point_filtered.iloc[i]['coordinates']
+        location = ast.literal_eval(location)
+        location = [i[::-1] for i in location[0]]
+              
+        folium.Polygon(location,
+                       color="black",
+                       fill_color=df_point_filtered.iloc[i]['color'],
+                       weight=2,
+                       fill_opacity=0.5,
+                       popup=popup
+                      ).add_to(areas)
 
 
 
-legend_template = legend(species_colors_dict,False)
-macro = MacroElement()
-macro._template = Template(legend_template)
-map.add_child(macro)
 
-folium.LayerControl().add_to(map)
+
+  legend_template = legend(species_colors_dict,False)
+  macro = MacroElement()
+  macro._template = Template(legend_template)
+  map.add_child(macro)
+  
+  folium.LayerControl().add_to(map)
+
+except:
+  pass
 
 output = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_width, height=OUTPUT_height,
                      feature_group_to_add=[points,areas])
