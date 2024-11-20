@@ -29,7 +29,7 @@ df_point = conn.read(ttl=ttl_df_points ,worksheet="df_observations")
 df_point_filtered =  df_point.copy()
 
 #---APP---
-st.logo(IMAGE,  link=None, icon_image=IMAGE)
+st.logo(IMAGE,  link=LINK, icon_image=IMAGE)
 
 if len(df_point_filtered)>0:
   st.sidebar.subheader("Filter op",divider=False)
