@@ -37,6 +37,10 @@ try:
                           value=(df_point.datum.min(), df_point.datum.max()),format="DD-MM-YYYY")
     
   df_point_filtered = df_point[(df_point['datum']>=d[0]) & (df_point['datum']<=d[1])]
+except:
+  pass
+
+try:
   species_filter_option = df_point_filtered["species"].unique()
   species_filter = st.sidebar.multiselect("Sorten",species_filter_option,species_filter_option)
   df_point_filtered = df_point_filtered[df_point_filtered['species'].isin(species_filter)]
