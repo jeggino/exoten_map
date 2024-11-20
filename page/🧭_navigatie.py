@@ -71,12 +71,12 @@ folium.TileLayer('OpenStreetMap',overlay=False,show=False,name="Stratenkaart").a
 for i in range(len(df_point_filtered)):
 
     if df_point_filtered.iloc[i]['geometry_type'] == "Point":
-      # html = popup_html(i,df_point_filtered)
-      # popup = folium.Popup(folium.Html(html, script=True), max_width=300)
+      html = popup_points(i,df_point_filtered)
+      popup = folium.Popup(folium.Html(html, script=True), max_width=300)
       
       folium.Marker([df_point_filtered.iloc[i]['lat'], df_point_filtered.iloc[i]['lng']],
-        # popup=popup,
-        icon=folium.Icon(icon='plant',
+        popup=popup,
+        icon=folium.Icon(icon='pagelines',
         prefix='fa',
         icon_color='black',
         color=df_point_filtered.iloc[i]['color'],)
