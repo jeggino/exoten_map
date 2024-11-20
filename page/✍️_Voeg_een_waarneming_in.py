@@ -3,7 +3,7 @@ from streamlit_gsheets import GSheetsConnection
 
 
 
-from credentials import *
+from constants import *
 from functions.inputs import map,input_data
 
 
