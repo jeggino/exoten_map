@@ -137,6 +137,7 @@ try:
                   df_filter 
                 
                   df_drop = df_point_filtered[~df_point_filtered.apply(tuple, axis=1).isin(df_filter.apply(tuple, axis=1))]
+                  df_drop 
                   conn.update(worksheet='df_observations',data=df_drop)
                   st.success('Waarneming verwijderd', icon="✅") 
                   st.switch_page("page/🧭_navigatie.py")
