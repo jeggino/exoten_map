@@ -49,7 +49,7 @@ elif option_user == "Gebruiker":
     
     if "login" not in st.session_state:
         with col_2:
-            logIn(df_users,option_user)
+            logIn(df_users)
             st.stop()
 
     else:
