@@ -106,7 +106,7 @@ for i in range(len(df_point_filtered)):
 legend_template = legend(species_colors_dict,True)
 macro = MacroElement()
 macro._template = Template(legend_template)
-points.add_child(macro)
+macro.add_to(map)
 
 folium.LayerControl().add_to(map)
 
