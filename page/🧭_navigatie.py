@@ -33,14 +33,16 @@ st.logo(IMAGE,  link=None, icon_image=IMAGE)
 
 if len(df_point_filtered)>0:
   st.sidebar.subheader("Filter op",divider=False)
+  
   df_point_filtered["datum"] = pd.to_datetime(df_point["datum"]).dt.date
   d = st.sidebar.slider("Datum", min_value=df_point_filtered.datum.min(),max_value=df_point_filtered.datum.max(),
                           value=(df_point_filtered.datum.min(), df_point_filtered.datum.max()),format="DD-MM-YYYY")
-    
   df_point_filtered = df_point_filtered[(df_point['datum']>=d[0]) & (df_point_filtered['datum']<=d[1])]
+  
   species_filter_option = df_point_filtered["species"].unique()
   species_filter = st.sidebar.multiselect("Sorten",species_filter_option,species_filter_option)
   df_point_filtered = df_point_filtered[df_point_filtered['species'].isin(species_filter)]
+  
   species_colors_dict=dict(zip(species_filter_option,COLORS[:len(species_filter_option)]))
   df_point_filtered['color'] = df_point_filtered['species'].map(species_colors_dict)
 
@@ -61,49 +63,49 @@ folium.TileLayer(tiles="CartoDB Positron",overlay=False,show=False,name="Witte k
 folium.TileLayer('OpenStreetMap',overlay=False,show=False,name="Stratenkaart").add_to(map)
 
 
-try:
-  for i in range(len(df_point_filtered)):
-  
-      if df_point_filtered.iloc[i]['geometry_type'] == "Point":
-        html = popup_points(i,df_point_filtered)
-        popup = folium.Popup(folium.Html(html, script=True), max_width=300)
-        
-        folium.Marker([df_point_filtered.iloc[i]['lat'], df_point_filtered.iloc[i]['lng']],
-          popup=popup,
-          icon=folium.Icon(icon="fa-brands fa-pagelines",
-          prefix='fa',
-          icon_color='black',
-          color=df_point_filtered.iloc[i]['color'],)
-          ).add_to(points)
-  
-      elif df_point_filtered.iloc[i]['geometry_type'] == "Polygon":
-        html = popup_polygons(i,df_point_filtered)
-        popup = folium.Popup(folium.Html(html, script=True), max_width=300)
-        location = df_point_filtered.iloc[i]['coordinates']
-        location = ast.literal_eval(location)
-        location = [i[::-1] for i in location[0]]
-              
-        folium.Polygon(location,
-                       color="black",
-                       fill_color=df_point_filtered.iloc[i]['color'],
-                       weight=2,
-                       fill_opacity=0.5,
-                       popup=popup
-                      ).add_to(areas)
+# try:
+for i in range(len(df_point_filtered)):
+
+    if df_point_filtered.iloc[i]['geometry_type'] == "Point":
+      html = popup_points(i,df_point_filtered)
+      popup = folium.Popup(folium.Html(html, script=True), max_width=300)
+      
+      folium.Marker([df_point_filtered.iloc[i]['lat'], df_point_filtered.iloc[i]['lng']],
+        popup=popup,
+        icon=folium.Icon(icon="fa-brands fa-pagelines",
+        prefix='fa',
+        icon_color='black',
+        color=df_point_filtered.iloc[i]['color'],)
+        ).add_to(points)
+
+    elif df_point_filtered.iloc[i]['geometry_type'] == "Polygon":
+      html = popup_polygons(i,df_point_filtered)
+      popup = folium.Popup(folium.Html(html, script=True), max_width=300)
+      location = df_point_filtered.iloc[i]['coordinates']
+      location = ast.literal_eval(location)
+      location = [i[::-1] for i in location[0]]
+            
+      folium.Polygon(location,
+                     color="black",
+                     fill_color=df_point_filtered.iloc[i]['color'],
+                     weight=2,
+                     fill_opacity=0.5,
+                     popup=popup
+                    ).add_to(areas)
 
 
 
 
 
-  legend_template = legend(species_colors_dict,False)
-  macro = MacroElement()
-  macro._template = Template(legend_template)
-  map.add_child(macro)
-  
-  folium.LayerControl().add_to(map)
+legend_template = legend(species_colors_dict,False)
+macro = MacroElement()
+macro._template = Template(legend_template)
+map.add_child(macro)
 
-except:
-  pass
+folium.LayerControl().add_to(map)
+
+# except:
+#   pass
 
 output = st_folium(map,returned_objects=["last_active_drawing"],width=OUTPUT_width, height=OUTPUT_height,
                      feature_group_to_add=[points,areas])
