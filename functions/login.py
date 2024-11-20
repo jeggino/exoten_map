@@ -34,10 +34,16 @@ def logIn(df_users):
         password = None
                              
     if st.button("logIn",use_container_width=True):
-        if password == true_password:
-            st.session_state.login = {"name": name, "password": password}
-            st.rerun()
+        if option_user == "Gebruiker": 
+            if password == true_password:
+                st.session_state.login = {"name": name, "password": password, "option_user":option_user}
+                st.rerun()
+    
+            else:
+                st.markdown(f"Sorry {name.split()[0]}, het wachtwoord is niet correct.")
 
-        else:
-            st.markdown(f"Sorry {name.split()[0]}, het wachtwoord is niet correct.")
+        elif option_user == "Gast":
+            st.session_state.login = {"name": name, "password": password, "option_user":option_user}
+            
+        
 
