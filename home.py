@@ -66,4 +66,5 @@ elif option_user == "Gebruiker":
 
     else:
         pg = st.navigation([page_1,page_2])
-        pg.run()
+
+pg.run()
