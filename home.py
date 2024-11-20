@@ -61,12 +61,12 @@ elif option_user == "Gast":
 
 elif option_user == "Gebruiker":
     
-    if "login" not in st.session_state:
-        with col_2:
-            logIn(df_users)
-            st.stop()
+    # if "login" not in st.session_state:
+    #     with col_2:
+    #         logIn(df_users)
+    #         st.stop()
 
-    else:
-        pg = st.navigation(page_1,page_2)
+    # else:
+    pg = st.navigation([page_1,page_2])
 
 pg.run()
