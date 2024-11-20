@@ -1,5 +1,14 @@
 import streamlit as st
+from functions.login import logIn,logOut
+if "login" not in st.session_state:
+    logIn()
+    st.stop()
 
+
+with st.sidebar:
+    logOut()
+    st.divider()
+    
 st.write("ciao")
 # from streamlit_gsheets import GSheetsConnection
 
