@@ -22,6 +22,7 @@ try:
     waarnemer = st.session_state.login['name']
     conn = st.connection("gsheets", type=GSheetsConnection)
     df_old = conn.read(ttl=ttl_df_points,worksheet="df_observations")
+    df_old 
     
     output_map = map(OUTPUT_width,OUTPUT_height)
     
