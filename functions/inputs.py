@@ -1,5 +1,4 @@
 import streamlit as st
-from credentials import *
 
 import folium
 from folium.plugins import Draw, Fullscreen, LocateControl
