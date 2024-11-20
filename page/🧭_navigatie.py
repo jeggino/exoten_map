@@ -30,8 +30,9 @@ df_point
 #---APP---
 st.logo(IMAGE,  link=None, icon_image=IMAGE)
 
-with st.sidebar:
-    logOut()
+if option_user == "Gebruiker" 
+    with st.sidebar:
+        logOut()
 
 try:
   st.sidebar.subheader("Filter op",divider=False)
