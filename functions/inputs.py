@@ -28,7 +28,7 @@ def map(OUTPUT_width,OUTPUT_height):
     folium.TileLayer(tiles="CartoDB Positron",overlay=False,show=False,name="Witte kaart").add_to(m)
     folium.TileLayer('OpenStreetMap',overlay=False,show=False,name="Stratenkaart").add_to(m)
 
-    folium.LayerControl().add_to(map)
+    folium.LayerControl().add_to(m)
     
     output = st_folium(m, returned_objects=["all_drawings"],width=OUTPUT_width, height=OUTPUT_height)
     output["features"] = output.pop("all_drawings")
