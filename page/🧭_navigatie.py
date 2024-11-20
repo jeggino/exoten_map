@@ -34,7 +34,7 @@ st.logo(IMAGE,  link=None, icon_image=IMAGE)
 if len(df_point_filtered)>0:
   st.sidebar.subheader("Filter op",divider=False)
   
-  df_point_filtered["datum"] = pd.to_datetime(df_point["datum"]).dt.date
+  df_point_filtered["datum"] = pd.to_datetime(df_point_filtered["datum"]).dt.date
   d = st.sidebar.slider("Datum", min_value=df_point_filtered.datum.min(),max_value=df_point_filtered.datum.max(),
                           value=(df_point_filtered.datum.min(), df_point_filtered.datum.max()),format="DD-MM-YYYY")
   df_point_filtered = df_point_filtered[(df_point['datum']>=d[0]) & (df_point_filtered['datum']<=d[1])]
