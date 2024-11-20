@@ -22,7 +22,7 @@ def logIn(df_users):
         st.warning("De gebruikersnaam is niet correct.")
         st.stop()
                              
-    if st.button("logIn"):
+    if st.button("logIn",use_container_width=True):
         if password == true_password:
             st.session_state.login = {"name": name, "password": password}
             st.rerun()
