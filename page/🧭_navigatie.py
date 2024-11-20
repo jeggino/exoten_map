@@ -76,7 +76,7 @@ for i in range(len(df_point_filtered)):
       
       folium.Marker([df_point_filtered.iloc[i]['lat'], df_point_filtered.iloc[i]['lng']],
         popup=popup,
-        icon=folium.Icon(icon='pagelines',
+        icon=folium.Icon(icon="fa-brands fa-pagelines",
         prefix='fa',
         icon_color='black',
         color=df_point_filtered.iloc[i]['color'],)
