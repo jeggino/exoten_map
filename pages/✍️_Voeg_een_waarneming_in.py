@@ -47,4 +47,4 @@ try:
         st.stop()
     
 except:
-    st.switch_page("page/🧭_navigatie.py")
+    st.switch_page("pages/🧭_navigatie.py")
