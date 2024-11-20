@@ -140,8 +140,8 @@ try:
                   df_drop 
                   conn.update(worksheet='df_observations',data=df_drop)
                   st.success('Waarneming verwijderd', icon="✅") 
-                  st.switch_page("page/🧭_navigatie.py")
-                  # st.page_link("🗺️_Home.py", label="Vernieuwen", icon="🔄",use_container_width=True)
+                  # st.switch_page("page/🧭_navigatie.py")
+                  st.page_link("page/🧭_navigatie.py", label="Vernieuwen", icon="🔄",use_container_width=True)
 
 except:
     pass
