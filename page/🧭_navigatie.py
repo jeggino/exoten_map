@@ -28,7 +28,7 @@ df_point = conn.read(ttl=ttl_df_points ,worksheet="df_observations")
 df_point 
 
 #---APP---
-st.logo(IMAGE_2,  link=None, icon_image=IMAGE)
+st.logo(IMAGE,  link=None, icon_image=IMAGE)
 
 with st.sidebar:
     logOut()
