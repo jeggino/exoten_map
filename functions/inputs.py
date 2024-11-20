@@ -26,7 +26,7 @@ def map(OUTPUT_width,OUTPUT_height):
     folium.TileLayer(tiles='https://api.mapbox.com/styles/v1/jeggino/cm2vtvb2l000w01qz9wet0mv9/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiamVnZ2lubyIsImEiOiJjbHdscmRkZHAxMTl1MmlyeTJpb3Z2eHdzIn0.N9TRN7xxTikk235dVs1YeQ',
                  attr='XXX Mapbox Attribution',overlay=False,show=True,name="Satellietkaart").add_to(m)
     folium.TileLayer(tiles="CartoDB Positron",overlay=False,show=False,name="Witte kaart").add_to(m)
-    folium.TileLayer('OpenStreetMap',overlay=False,show=False,name="Stratenkaart").add_to(m)
+    
 
     folium.LayerControl().add_to(m)
     
