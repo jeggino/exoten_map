@@ -1,11 +1,12 @@
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 
-from credentials import *
+from constants import *
+from functions.login import logIn,logOut
 
 
 conn = st.connection("gsheets", type=GSheetsConnection)
-df_references = conn.read(ttl='10',worksheet="df_users")
+df_users = conn.read(ttl=ttl_df_users,worksheet="df_users")
 
 st.markdown(
     """
@@ -37,36 +38,6 @@ reduce_header_height_style = """
 st.markdown(reduce_header_height_style, unsafe_allow_html=True)
 
 
-#--FUNCTIONS---
-def logIn():
-    name = st.text_input("Vul uw gebruikersnaam in, alstublieft",value=None)  
-    password = st.text_input("Vul uw wachtwoord in, alstublieft")
-    try:
-        if name == None:
-            st.stop()
-        
-        index = df_references[df_references['username']==name].index[0]
-        true_password = df_references.loc[index,"password"]
-        type = df_references.loc[index,"type"]
-
-    except:
-        st.warning("De gebruikersnaam is niet correct.")
-        st.stop()
-                             
-    if st.button("logIn"):
-        if password == true_password:
-            st.session_state.login = {"name": name, "password": password, 'type':type}
-            st.rerun()
-
-        else:
-            st.markdown(f"Sorry {name.split()[0]}, het wachtwoord is niet correct.")
-
-        
-def logOut():
-    if st.button("logOut",use_container_width=True):
-        del st.session_state.login
-        st.rerun()
-
 
 #---APP---
 page_1 = st.Page("page/🧭_navigatie.py", title="Navigatie",icon="🧭" )
@@ -78,15 +49,21 @@ page_4 = st.Page("page/📊_ Statistik.py", title="Statistik",icon="📊" )
 IMAGE = "image/logo.png"
 st.logo(IMAGE_2,  link=None, icon_image=IMAGE_2)
 
-if "login" not in st.session_state:
-    logIn()
+st.image("https://www.elskenecologie.nl/wp-content/uploads/2023/08/terschelling.jpg")
+option_user = st.selectbox("Selecteer of u een gast of een gebruikersaccount bent. Bedankt.",("Gast", "Gebruiker"),index = None)
+
+if option_user == None:
     st.stop()
 
-if st.session_state.login['type'] == 'user':
-    pg = st.navigation([page_1,page_2,page_3,page_4])
+elif option_user == "Gast":
+    pg = st.navigation([page_4])
 
-else:
-    pg = st.navigation([page_1,page_4])
-  
+elif option_user == "Gebruiker":
+    
+    if "login" not in st.session_state:
+        logIn(df_users)
+        st.stop()
 
-pg.run()
+    else:
+        pg = st.navigation([page_1,page_2,page_3,page_4])
+        pg.run()
