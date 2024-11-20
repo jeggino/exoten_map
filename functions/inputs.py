@@ -5,6 +5,8 @@ import folium
 from folium.plugins import Draw, Fullscreen, LocateControl
 from streamlit_folium import st_folium
 
+import pandas as pd
+
 from streamlit_gsheets import GSheetsConnection
 
 from constants import *
