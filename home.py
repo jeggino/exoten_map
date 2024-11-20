@@ -24,7 +24,7 @@ df_users = conn.read(ttl=ttl_df_users,worksheet="df_users")
 #---APP---
 page_1 = st.Page("page/🧭_navigatie.py", title="Navigatie",icon="🧭" )
 page_2 = st.Page("page/✍️_Voeg_een_waarneming_in.py", title="Voeg een waarneming in",icon="✍️" )
-page_3 = st.Page("page/↩️_Update_een_locatie.py", title="Update een locatie",icon="↩️" )
+# page_3 = st.Page("page/↩️_Update_een_locatie.py", title="Update een locatie",icon="↩️" )
 # page_4 = st.Page("page/📊_ Statistik.py", title="Statistik",icon="📊" )
 
 #---APP---
