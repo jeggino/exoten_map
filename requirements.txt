@@ -1,0 +1,6 @@
+streamlit
+st-gsheets-connection
+folium
+altair
+streamlit-folium>=0.8.1
+geopandas
