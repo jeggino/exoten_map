@@ -16,6 +16,9 @@ from functions.login import logOut,logIn
 from functions.popup import popup_polygons,popup_points
 from constants import *
 
+conn = st.connection("gsheets", type=GSheetsConnection)
+df_users = conn.read(ttl=ttl_df_users,worksheet="df_users")
+
 if "login" not in st.session_state:
     logIn(df_users)
     st.stop()
