@@ -5,8 +5,8 @@ altair
 streamlit-folium>=0.8.1
 geopandas
 mysql-connector-python
-mysqlclient==8.0.33
-SQLAlchemy==2.0.21
+mysqlclient
+SQLAlchemy
 python3-dev
 default-libmysqlclient-dev
 build-essential
