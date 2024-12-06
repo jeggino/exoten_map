@@ -4,9 +4,7 @@ folium
 altair
 streamlit-folium>=0.8.1
 geopandas
-mysql-connector-python
-mysqlclient
-SQLAlchemy
+
 python3-dev
 default-libmysqlclient-dev
 build-essential
