@@ -3,7 +3,4 @@ folium
 altair
 streamlit-folium>=0.8.1
 geopandas
-
-mysqlclient==2.2.1
-SQLAlchemy==2.0.29
 streamlit==1.32.2
