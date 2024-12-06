@@ -7,3 +7,7 @@ geopandas
 mysql-connector-python
 mysqlclient==8.0.33
 SQLAlchemy==2.0.21
+python3-dev
+default-libmysqlclient-dev
+build-essential
+pkg-config
