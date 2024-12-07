@@ -7,7 +7,9 @@
 
 
 import streamlit as st
-conn = st.connection("sql")
+conn = st.connection(
+    "my_sql_connection", type="streamlit.connections.SQLConnection"
+)
 
 
 # #---LAYOUT---
