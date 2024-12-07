@@ -5,6 +5,3 @@ folium
 altair
 streamlit-folium>=0.8.1
 geopandas
-build-essential
-pkg-config
-default-libmysqlclient-dev
