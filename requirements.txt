@@ -5,4 +5,3 @@ folium
 altair
 streamlit-folium>=0.8.1
 geopandas
-mysqlclient
