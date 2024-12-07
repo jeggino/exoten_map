@@ -1,6 +1,6 @@
 import streamlit as st
 
-conn = st.connection("env:local", "sql")
+conn = st.connection("local", "sql")
 df = conn.query("select * from mytable")
 
 # import streamlit as st
