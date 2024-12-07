@@ -1,8 +1,11 @@
+
 import streamlit as st
 
-conn = st.connection("local", "sql")
-df = conn.query("select * from mytable")
+# Initialize connection.
+conn = st.connection('mysql', type='sql')
 
+# Perform query.
+df = conn.query('SELECT * from mytable;', ttl=600)
 # import streamlit as st
 # from streamlit_gsheets import GSheetsConnection
 
