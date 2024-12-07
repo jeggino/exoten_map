@@ -7,10 +7,12 @@
 
 
 import streamlit as st
-from streamlit.connections import SQLConnection
-import pandas as pd
-conn = st.connection("my_sql_connection", type=SQLConnection)
 
+import pandas as pd
+import streamlit as st
+conn = st.connection(
+    "my_sql_connection", type="streamlit.connections.SQLConnection"
+)
 # Perform query.
 df = conn.query('SELECT * from df;', ttl=600)
 
