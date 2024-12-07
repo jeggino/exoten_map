@@ -7,7 +7,7 @@
 
 
 import streamlit as st
-import sqlalchemy
+
 conn = st.connection(
     "my_sql_connection", type="streamlit.connections.SQLConnection"
 )
