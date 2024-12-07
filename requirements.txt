@@ -7,3 +7,4 @@ streamlit-folium>=0.8.1
 geopandas
 sqlalchemy
 psycopg2-binary
+mysqlclient
