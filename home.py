@@ -2,7 +2,6 @@
 import streamlit as st
 import pandas as pd
 from sqlalchemy import create_engine
-import pyodbc
 import pymysql
 
 engine = create_engine("mysql+pymysql://{user}:{pw}@localhost/{db}"
