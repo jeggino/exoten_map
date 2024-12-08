@@ -4,6 +4,7 @@ import pandas as pd
 # Initialize connection.
 conn = st.connection('mysql', type='sql')
 st.write('ok')
+conn.query('SELECT * FROM df;')
 # query = pd.read_sql('SELECT * FROM df;' , conn)
 # query
 # import streamlit as st
