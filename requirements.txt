@@ -1,5 +1,4 @@
-streamlit==1.31.1 
-SQLAlchemy==2.0.27
+
 st-gsheets-connection
 streamlit_option_menu
 folium
@@ -7,3 +6,6 @@ altair
 streamlit-folium>=0.8.1
 geopandas
 mysqlclient 
+streamlit==1.5.0
+sqlalchemy==1.4.31
+pymysql==1.0.2
