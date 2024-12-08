@@ -5,7 +5,7 @@ import pandas as pd
 conn = st.connection('mysql', type='sql')
 
 
-df = conn.execute('SELECT * from df;')
+df = conn.query('SELECT * from df;')
 
 df
 # import streamlit as st
