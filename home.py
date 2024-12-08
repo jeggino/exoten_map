@@ -1,12 +1,12 @@
 
 import streamlit as st
-
+import pandas as pd
 # Initialize connection.
 conn = st.connection('mysql', type='sql')
-df = conn.query('SELECT * from df')
 
 
-
+df_old = pd.read_sql("SELECT * FROM df",con=conn)
+df_old
 # import streamlit as st
 # from streamlit_gsheets import GSheetsConnection
 
