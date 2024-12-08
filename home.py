@@ -5,8 +5,9 @@ import pandas as pd
 conn = st.connection('mysql', type='sql')
 
 
-df_old = pd.read_sql("SELECT * FROM df",con=conn)
-df_old
+df = conn.query('SELECT * from mytable;', ttl=600)
+
+df
 # import streamlit as st
 # from streamlit_gsheets import GSheetsConnection
 
