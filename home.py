@@ -1,13 +1,20 @@
 
 import streamlit as st
 import pandas as pd
-# Initialize connection.
-conn = st.connection('mysql', type='sql')
-df1 = pd.read_sql_query('SELECT * FROM df;', conn)
-st.write('ok')
+from sqlalchemy import create_engine
+import pyodbc
+import pymysql
+
+engine = create_engine("mysql+pymysql://{user}:{pw}@localhost/{db}"
+                       .format(user="root",
+                               pw="Platinum79",
+                               db="ebird"))
+
+q1 = 'SELECT * FROM df'
+df1 = pd.read_sql_query(q1, engine)
 df1
-# query = pd.read_sql('SELECT * FROM df;' , conn)
-# query
+
+
 # import streamlit as st
 # from streamlit_gsheets import GSheetsConnection
 
