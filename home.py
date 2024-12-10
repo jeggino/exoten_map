@@ -4,7 +4,10 @@ import streamlit as st
 conn = st.connection('mysql', type='sql')
 st.write('OK')
 # # Perform query.
-df = conn.query('SELECT * from mytable;', ttl=600)
+from sqlalchemy import create_engine
+import pandas as pd
+
+df_old = pd.read_sql("SELECT * FROM mytable",con=conn)
 
 # import streamlit as st
 # from streamlit_gsheets import GSheetsConnection
