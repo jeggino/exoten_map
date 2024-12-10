@@ -4,7 +4,7 @@ import streamlit as st
 conn = st.connection('mysql', type='sql')
 st.write('OK')
 # # Perform query.
-# df = conn.query('SELECT * from df;', ttl=600)
+df = conn.query('SELECT * from ebird.df;', ttl=600)
 
 # import streamlit as st
 # from streamlit_gsheets import GSheetsConnection
