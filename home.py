@@ -1,12 +1,8 @@
-# import streamlit as st
+import streamlit as st
+from langchain_community.utilities import SQLDatabase
 
-# # Initialize connection.
-# conn = st.connection('mysql', type='sql')
-# st.write('OK')
-# # # Perform query.
-# from sqlalchemy import create_engine
-# import pandas as pd
-
+mysql_uri = f"mysql+mysqlconnector://root:Platinum79@localhost:3306/ebird"
+SQLDatabase.from_uri(mysql_uri)
 # df_old = pd.read_sql("SELECT * FROM mytable",con=conn)
 
 import streamlit as st
