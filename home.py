@@ -1,19 +1,4 @@
 import streamlit as st
-import pandas as pd
-from sqlalchemy import create_engine
-import pyodbc
-import pymysql
-
-@st.cache(allow_output_mutation=True)
-def get_connection():
-    return create_engine("mssql+pyodbc://root:Platinum79@localhost:3306/ebird?driver=ODBC+Driver+17+for+SQL+Server", 
-    fast_executemany = True
-    )
-q1 = 'SELECT * FROM df'
-df1 = pd.read_sql_query(q1, get_connection())
-# df_old = pd.read_sql("SELECT * FROM mytable",con=conn)
-
-import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 
 from constants import *
