@@ -9,4 +9,4 @@ streamlit
 mysqlclient
 SQLAlchemy
 
-langchain_community
+pyodbc
