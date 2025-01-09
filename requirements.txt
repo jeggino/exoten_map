@@ -9,4 +9,4 @@ streamlit
 mysqlclient
 SQLAlchemy
 
-langchain-community==0.2.7
+langchain_community
