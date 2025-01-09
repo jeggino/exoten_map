@@ -8,8 +8,3 @@ streamlit
 
 mysqlclient
 SQLAlchemy
-
-
-sqlalchemy==1.4.31
-pymysql==1.0.2
-pyodbc
